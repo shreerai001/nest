@@ -10,10 +10,6 @@ export class AppService {
     private usersRepository: Repository<User>,
   ) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   findAll() {
     return this.usersRepository.find();
   }
@@ -27,6 +23,6 @@ export class AppService {
   }
 
   delete(id: number) {
-    return this.usersRepository.delete({ id });
+    return this.usersRepository.delete(id);
   }
 }

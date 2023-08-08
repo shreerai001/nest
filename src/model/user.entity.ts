@@ -5,7 +5,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Photo } from './photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Profile } from './profile.entity';
 
@@ -25,19 +24,10 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @JoinColumn({ name: 'photoUri' })
-  @OneToOne(() => Photo, (photo) => photo.user, {
-    eager: true,
-    onDelete: 'CASCADE',
-  })
   @ApiProperty()
-  photo: Photo;
-
-  @JoinColumn({ name: 'profileUri' })
   @OneToOne(() => Profile, (profile) => profile.user, {
     eager: true,
-    onDelete: 'CASCADE',
+    cascade: true,
   })
-  @ApiProperty()
   profile: Profile;
 }
