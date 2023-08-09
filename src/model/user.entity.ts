@@ -1,12 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Profile } from './profile.entity';
+import { Photo } from './photo.entity';
 
 @Entity()
 export class User {
@@ -30,4 +32,9 @@ export class User {
     cascade: true,
   })
   profile: Profile;
+
+  @ApiProperty()
+  @OneToMany(() => Photo, (photo) => photo.user, { cascade: true })
+  @JoinColumn()
+  photos: Array<Photo>;
 }
